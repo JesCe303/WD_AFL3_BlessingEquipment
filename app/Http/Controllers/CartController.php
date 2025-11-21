@@ -87,14 +87,26 @@ class CartController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // Validate: quantity must be at least 1
+        // Validate: quantity must be at least 1, must be integer, max 9999
         $request->validate([
-            'quantity' => 'required|integer|min:1'
+            'quantity' => 'required|integer|min:1|max:9999'
+        ], [
+            'quantity.required' => 'Quantity is required!',
+            'quantity.integer' => 'Quantity must be a valid number!',
+            'quantity.min' => 'Quantity must be at least 1!',
+            'quantity.max' => 'Quantity cannot exceed 9999!'
         ]);
 
         // Find cart item belonging to current user
         // Auth::id() ensures customer can only update their own cart
         $cartItem = Cart::where('user_id', Auth::id())->findOrFail($id);
+        
+        // Check if quantity exceeds available stock
+        $product = ProductModel::findOrFail($cartItem->id_product);
+        if ($request->quantity > $product->stock_product) {
+            return redirect('/cart')->with('Error', 'Quantity exceeds available stock! Only ' . $product->stock_product . ' items available.');
+        }
+        
         $cartItem->update(['quantity' => $request->quantity]);
 
         return redirect('/cart')->with('Message', 'Cart updated!');

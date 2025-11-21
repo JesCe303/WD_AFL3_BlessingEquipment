@@ -89,15 +89,10 @@
                             </form>
                         </li>
                     @else
-                        {{-- Login/Register buttons for guests --}}
+                        {{-- Login button for guests --}}
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('login') }}">
                                 <i class="bi bi-box-arrow-in-right"></i> Login
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">
-                                <i class="bi bi-person-plus"></i> Register
                             </a>
                         </li>
                     @endauth
