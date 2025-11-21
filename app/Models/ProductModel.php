@@ -4,21 +4,39 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Product Model - Represents spare parts products
+ * Each product belongs to one branch and one category
+ */
 class ProductModel extends Model
 {
-    // initialize table products
+    // Table name in database
     protected $table = 'tb_product';
 
-    // initialize primary key inside table products
+    // Primary key column name
     protected $primaryKey = 'id_product';
 
-    // initialize data that can be filled
-    // protected $fillable = [
-    //     'product_name',
-    //     'product_price',
-    //     'product_stock'
-    // ];
-
-    // initialize data that cannot be filled
+    // Allow mass assignment for all fields except id_product
+    // This means all columns can be filled using create() or update()
     protected $guarded = ['id_product'];
+
+    /**
+     * Relationship: Product belongs to Branch
+     * Each product is assigned to one specific branch (Surabaya or Jakarta)
+     * Used to filter products by branch in product list
+     */
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class, 'id_branch', 'id_branch');
+    }
+
+    /**
+     * Relationship: Product belongs to Category
+     * Each product has one category (e.g., Bakery Equipment, Restaurant Equipment)
+     * Used to display category name in product table
+     */
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'id_category', 'id_category');
+    }
 }

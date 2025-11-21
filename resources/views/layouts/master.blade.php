@@ -18,13 +18,12 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     
     <!-- Custom Product Styles -->
-    {{-- summon CSS --}}
     <link rel="stylesheet" href="{{ asset('css/product-styles.css') }}">
         
     <title>Homepage</title>
 </head>
 
-<body>
+<body style="min-height: 100vh; display: flex; flex-direction: column;">
 
     <!--Navbar -->
     @include('layouts.navbar')
@@ -32,7 +31,7 @@
     <!-- Content -->
     {{-- margin top for the fixed navbar --}}
     {{-- margin bottom for the fixed footer --}}
-    <div class="container" style="margin-top: 80px; margin-bottom: 50px;">
+    <div class="container" style="margin-top: 80px; margin-bottom: 50px; flex: 1;">
         <!-- content content -->
         @yield ('content')
     </div>

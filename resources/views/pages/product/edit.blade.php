@@ -7,20 +7,25 @@
         </div>
 
         <div class="card-body p-4">
-            {{-- Form sends data to /product/{id} URL to update specific product. Example: /product/5 updates product with ID 5 --}}
-            <form action="/product/{{ $data->id_product }}" method="POST">
+            <form action="/product/{{ $data->id_product }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                {{-- HTML forms only support GET/POST, so we use POST with @method('PUT') to tell Laravel this is an UPDATE operation --}}
                 @method('PUT')
+                
+                {{-- Show current branch (read-only) --}}
+                <div class="alert alert-info mb-3">
+                    <i class="bi bi-info-circle me-2"></i>
+                    <strong>Branch:</strong> {{ $data->branch->name_branch }}
+                </div>
+
+                <div class="mb-3">
+                    <label for="productName" class="form-label form-label-custom">
+                        <i class="bi bi-box-seam me-1"></i>Product Name
+                    </label>
+                    <input type="text" class="form-control" id="productName" name="name_product" 
+                           value="{{ $data->name_product }}" placeholder="Enter product name" required>
+                </div>
+
                 <div class="row">
-                    <div class="mb-3 col-md-6">
-                        <label for="productName" class="form-label form-label-custom">
-                            <i class="bi bi-box-seam me-1"></i>Product Name
-                        </label>
-                        {{-- value="{{ $data->name_product }}" displays existing product name from database --}}
-                        <input type="text" class="form-control" id="productName" name="name_product" 
-                               value="{{ $data->name_product }}" placeholder="Enter product name" required>
-                    </div>
                     <div class="mb-3 col-md-6">
                         <label for="productPrice" class="form-label form-label-custom">
                             <i class="bi bi-tag me-1"></i>Price (Rp)
@@ -28,6 +33,27 @@
                         <input type="text" class="form-control" id="productPrice" name="price_product" 
                                value="{{ number_format($data->price_product, 0, ',', '.') }}" placeholder="0" required oninput="formatPrice(this)">
                     </div>
+                    <div class="mb-3 col-md-6">
+                        <label for="productStock" class="form-label form-label-custom">
+                            <i class="bi bi-boxes me-1"></i>Stock
+                        </label>
+                        <input type="number" class="form-control" id="productStock" name="stock_product" 
+                               value="{{ $data->stock_product }}" placeholder="0" min="0" required>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="productCategory" class="form-label form-label-custom">
+                        <i class="bi bi-folder me-1"></i>Category
+                    </label>
+                    <select class="form-control" id="productCategory" name="id_category" required>
+                        <option value="">Select category</option>
+                        @foreach($categories as $category)
+                            <option value="{{ $category->id_category }}" {{ $data->id_category == $category->id_category ? 'selected' : '' }}>
+                                {{ $category->category_name }}
+                            </option>
+                        @endforeach
+                    </select>
                 </div>
 
                 <div class="mb-3">
@@ -35,7 +61,23 @@
                         <i class="bi bi-card-text me-1"></i>Product Description
                     </label>
                     <textarea class="form-control" id="productDescription" name="description_product" 
-                              rows="5" placeholder="Enter detailed product description..." required>{{ $data->description_product }}</textarea>
+                              rows="4" placeholder="Enter detailed product description..." required>{{ $data->description_product }}</textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label for="productImage" class="form-label form-label-custom">
+                        <i class="bi bi-image me-1"></i>Product Image
+                    </label>
+                    @if($data->image_product)
+                        <div class="mb-2">
+                            <img src="{{ asset('storage/' . $data->image_product) }}" alt="Current Image" class="img-preview">
+                            <p class="text-muted small">Current image</p>
+                        </div>
+                    @endif
+                    <input type="file" class="form-control" id="productImage" name="image_product" 
+                           accept="image/jpeg,image/png,image/jpg" onchange="previewImage(this)">
+                    <small class="text-muted">Max 2MB. Format: JPG, JPEG, PNG. Leave empty to keep current image.</small>
+                    <div id="imagePreview" class="mt-2"></div>
                 </div>
 
                 <div class="d-flex justify-content-end gap-2 mt-4">
@@ -52,13 +94,25 @@
 
     <script>
         function formatPrice(input) {
-            // Remove all non-digit characters
             let value = input.value.replace(/\D/g, '');
-            
-            // Add dots every 3 digits from right
             value = value.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-            
             input.value = value;
+        }
+
+        function previewImage(input) {
+            const preview = document.getElementById('imagePreview');
+            preview.innerHTML = '';
+            
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.className = 'img-preview';
+                    preview.appendChild(img);
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
         }
     </script>
 @endsection

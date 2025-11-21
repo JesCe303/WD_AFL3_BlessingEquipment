@@ -63,7 +63,7 @@
 }
 
 /* Button: Add Product */
-/* Used in: show.blade.php (button to navigate to add product page) */
+/* Used in: product/show.blade.php (button to navigate to add product page) */
 .btn-add-product {
     background-color: #1a2332;
     border: none;
@@ -74,6 +74,24 @@
 }
 
 .btn-add-product:hover {
+    background-color: #FFD700;
+    color: #1a2332;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 215, 0, 0.5);
+}
+
+/* Button: Add Category */
+/* Used in: category/show.blade.php (button to navigate to add category page) */
+.btn-add-category {
+    background-color: #1a2332;
+    border: none;
+    color: #FFD700;
+    padding: 10px 30px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-add-category:hover {
     background-color: #FFD700;
     color: #1a2332;
     transform: translateY(-2px);
@@ -237,4 +255,70 @@
 .btn-cancel-modal:hover {
     background-color: #FFD700;
     color: #1a2332;
+}
+
+/* Button: Add Branch */
+/* Used in: branch/show.blade.php (button to navigate to add branch page) */
+.btn-add-branch {
+    background-color: #1a2332;
+    border: none;
+    color: #FFD700;
+    padding: 10px 30px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-add-branch:hover {
+    background-color: #FFD700;
+    color: #1a2332;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 215, 0, 0.5);
+}
+
+/* Image Styles */
+/* Used in: Image thumbnails in table lists */
+.img-thumbnail-list {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 4px;
+    border: 2px solid #d0d0c8;
+}
+
+/* Used in: Image preview in add/edit forms */
+.img-preview {
+    max-width: 200px;
+    max-height: 200px;
+    object-fit: contain;
+    border-radius: 8px;
+    border: 2px solid #1a2332;
+    padding: 5px;
+    background-color: #fff;
+}
+
+/* Dropdown menu styles */
+.dropdown-menu {
+    border: 2px solid #1a2332;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-item {
+    color: #1a2332;
+    transition: all 0.2s ease;
+}
+
+.dropdown-item:hover {
+    background-color: #f5f5f0;
+    color: #1a2332;
+    padding-left: 20px;
+}
+
+.dropdown-item.active {
+    background-color: #1a2332;
+    color: #FFD700;
+    font-weight: bold;
+}
+
+.dropdown-item i {
+    color: #6c757d;
 }

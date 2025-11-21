@@ -11,10 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tb_category', function (Blueprint $table) {
-            $table->id('id_category');
-            $table->string('category_name', 100);
-            $table->text('category_description');
+        Schema::create('tb_branch', function (Blueprint $table) {
+            $table->id('id_branch');
+            $table->string('name_branch', 150);
+            $table->text('address_branch');
+            $table->string('type_branch', 50); // Online/Offline/Hybrid
+            $table->string('image_branch')->nullable(); // Branch image upload
             $table->timestamps();
         });
     }
@@ -24,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tb_category');
+        Schema::dropIfExists('tb_branch');
     }
 };

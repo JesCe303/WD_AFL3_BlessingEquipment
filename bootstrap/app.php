@@ -11,7 +11,23 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        //
+        /**
+         * Register custom middleware aliases for route protection
+         * 
+         * 'admin' => AdminMiddleware
+         * - Protects admin routes (Branch, Category, Product CRUD)
+         * - Checks if user has role='admin'
+         * - Usage: Route::middleware(['auth', 'admin'])
+         * 
+         * 'customer' => CustomerMiddleware
+         * - Protects customer routes (Shopping Cart)
+         * - Checks if user has role='customer'
+         * - Usage: Route::middleware(['auth', 'customer'])
+         */
+        $middleware->alias([
+            'admin' => \App\Http\Middleware\AdminMiddleware::class,
+            'customer' => \App\Http\Middleware\CustomerMiddleware::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

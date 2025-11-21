@@ -13,12 +13,22 @@ return new class extends Migration
     {
         // syntax for creating product table (tb_product)
         Schema::create('tb_product', function (Blueprint $table) {
+
             $table->id('id_product'); //default primary key 'id'
+
             $table->string('name_product', 150);
-            $table->integer('price_product');
+            $table->bigInteger('price_product');
             $table->text('description_product');
-            $table->integer('id_category');
+            $table->integer('stock_product');
+            $table->string('image_product')->nullable();
+
+            $table->unsignedBigInteger('id_branch');
+            $table->unsignedBigInteger('id_category');
             $table->timestamps();
+
+            $table->foreign('id_branch')->references('id_branch')->on('tb_branch')->onDelete('cascade');
+            // onDelete cascade means if the branch is deleted, all products in that branch will also be deleted
+            $table->foreign('id_category')->references('id_category')->on('tb_category')->onDelete('cascade');
         });
     }
 
