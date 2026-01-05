@@ -5,9 +5,11 @@
 @section('content')
     {{-- Page Header --}}
     <div class="about-header">
-        <div class="container">
-            <h1 class="page-title">About Blessing Equipment</h1>
-            <p class="page-subtitle">Excellence in Spare Parts Supply Since 2015</p>
+        <div class="about-header-overlay">
+            <div class="container">
+                <h1 class="page-title">About Blessing Equipment</h1>
+                <p class="page-subtitle">Excellence in Spare Parts Supply Since 2015</p>
+            </div>
         </div>
     </div>
 
@@ -194,35 +196,68 @@
     <style>
         /* Page Header */
         .about-header {
-            background: linear-gradient(135deg, #1a2332 0%, #2c3e50 100%);
-            padding: 80px 20px 100px;
+            background: linear-gradient(135deg, rgba(26, 35, 50, 0.95) 0%, rgba(44, 62, 80, 0.92) 100%),
+                        url('https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?q=80&w=2070') center/cover;
+            padding: 120px 0 100px;
             text-align: center;
             color: white;
             position: relative;
             overflow: hidden;
+            width: 100%;
+            margin: 0;
         }
 
         .about-header::before {
             content: '';
             position: absolute;
-            bottom: -2px;
+            top: 0;
             left: 0;
             right: 0;
-            height: 60px;
-            background: white;
-            clip-path: polygon(0 50%, 100% 0, 100% 100%, 0 100%);
+            bottom: 0;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255, 215, 0, 0.02) 10px,
+                rgba(255, 215, 0, 0.02) 20px
+            );
+        }
+
+        .about-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 200px;
+            background: linear-gradient(to bottom, 
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.05) 20%,
+                rgba(255, 255, 255, 0.15) 40%,
+                rgba(255, 255, 255, 0.35) 60%,
+                rgba(255, 255, 255, 0.65) 80%,
+                rgba(255, 255, 255, 0.90) 92%,
+                #ffffff 100%
+            );
+        }
+
+        .about-header-overlay {
+            position: relative;
+            z-index: 1;
         }
 
         .page-title {
             font-size: 3.5rem;
-            font-weight: 700;
+            font-weight: 800;
             color: #FFD700;
             margin-bottom: 1rem;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
         }
 
         .page-subtitle {
-            font-size: 1.3rem;
-            opacity: 0.9;
+            font-size: 1.4rem;
+            opacity: 0.95;
+            color: rgba(255, 255, 255, 0.9);
         }
 
         /* Sections */

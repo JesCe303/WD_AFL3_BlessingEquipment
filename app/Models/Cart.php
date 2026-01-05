@@ -10,14 +10,18 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Cart extends Model
 {
-    protected $fillable = ['user_id', 'id_product', 'quantity'];
+    protected $table = 'tb_cart';
+    protected $primaryKey = 'id_cart';
+    public $timestamps = false;
+    
+    protected $fillable = ['id_user', 'id_product', 'quantity'];
 
     /**
      * Relationship: Cart belongs to User (customer)
      */
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'id_user', 'id_user');
     }
 
     /**

@@ -28,6 +28,14 @@ return Application::configure(basePath: dirname(__DIR__))
             'admin' => \App\Http\Middleware\AdminMiddleware::class,
             'customer' => \App\Http\Middleware\CustomerMiddleware::class,
         ]);
+
+        /**
+         * Exclude Midtrans callback from CSRF verification
+         * Midtrans sends POST requests without CSRF token
+         */
+        $middleware->validateCsrfTokens(except: [
+            'midtrans/callback',
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

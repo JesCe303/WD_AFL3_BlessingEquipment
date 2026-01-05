@@ -30,7 +30,7 @@ class CartController extends Controller
         // Get all cart items for current logged-in customer with product details
         // Auth::id() = current user's ID from session
         // with() = eager load relationships to avoid N+1 queries
-        $cartItems = Cart::where('user_id', Auth::id())
+        $cartItems = Cart::where('id_user', Auth::id())
             ->with(['product.branch', 'product.category'])
             ->get();
 
@@ -58,7 +58,7 @@ class CartController extends Controller
 
         // Check if product already in cart for current user
         // Auth::id() = current logged-in user's ID
-        $cartItem = Cart::where('user_id', Auth::id())
+        $cartItem = Cart::where('id_user', Auth::id())
             ->where('id_product', $request->id_product)
             ->first();
 
@@ -70,7 +70,7 @@ class CartController extends Controller
         } else {
             // Add new product to cart (first time adding this product)
             Cart::create([
-                'user_id' => Auth::id(), // Current user's ID
+                'id_user' => Auth::id(), // Current user's ID
                 'id_product' => $request->id_product,
                 'quantity' => $request->quantity
             ]);
@@ -78,6 +78,57 @@ class CartController extends Controller
         }
 
         // Redirect back to previous page with success message
+        return redirect()->back()->with('Message', $message);
+    }
+
+    /**
+     * Add product to cart (quick add from product listing)
+     * If product already in cart, increase quantity by 1
+     * Called from: Product listing page "Add to Cart" button
+     */
+    public function add(Request $request)
+    {
+        // Validate input: product must exist in database
+        $request->validate([
+            'id_product' => 'required|exists:tb_product,id_product',
+            'quantity' => 'nullable|integer|min:1'
+        ]);
+
+        // Default quantity to 1 if not provided
+        $quantity = $request->quantity ?? 1;
+
+        // Check stock availability
+        $product = ProductModel::findOrFail($request->id_product);
+        if ($product->stock_product < $quantity) {
+            return redirect()->back()->with('Error', 'Insufficient stock! Only ' . $product->stock_product . ' items available.');
+        }
+
+        // Check if product already in cart for current user
+        $cartItem = Cart::where('id_user', Auth::id())
+            ->where('id_product', $request->id_product)
+            ->first();
+
+        if ($cartItem) {
+            // Product exists in cart, check if new quantity exceeds stock
+            $newQuantity = $cartItem->quantity + $quantity;
+            if ($newQuantity > $product->stock_product) {
+                return redirect()->back()->with('Error', 'Cannot add more! You already have ' . $cartItem->quantity . ' in cart. Total would exceed available stock.');
+            }
+            
+            $cartItem->quantity = $newQuantity;
+            $cartItem->save();
+            $message = 'Added to cart! You now have ' . $newQuantity . ' of this item.';
+        } else {
+            // Add new product to cart
+            Cart::create([
+                'id_user' => Auth::id(),
+                'id_product' => $request->id_product,
+                'quantity' => $quantity
+            ]);
+            $message = 'Product added to cart!';
+        }
+
+        // Redirect back with success message
         return redirect()->back()->with('Message', $message);
     }
 
@@ -99,7 +150,7 @@ class CartController extends Controller
 
         // Find cart item belonging to current user
         // Auth::id() ensures customer can only update their own cart
-        $cartItem = Cart::where('user_id', Auth::id())->findOrFail($id);
+        $cartItem = Cart::where('id_user', Auth::id())->findOrFail($id);
         
         // Check if quantity exceeds available stock
         $product = ProductModel::findOrFail($cartItem->id_product);
@@ -120,7 +171,7 @@ class CartController extends Controller
     {
         // Find cart item belonging to current user
         // Auth::id() prevents customers from deleting other users' cart items
-        $cartItem = Cart::where('user_id', Auth::id())->findOrFail($id);
+        $cartItem = Cart::where('id_user', Auth::id())->findOrFail($id);
         $cartItem->delete();
 
         return redirect('/cart')->with('Message', 'Item removed from cart!');

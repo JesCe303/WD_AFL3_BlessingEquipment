@@ -25,7 +25,7 @@
                 <label for="name" class="form-label">
                     <i class="bi bi-person"></i> Full Name
                 </label>
-                <input type="text" id="name" name="name" class="form-control" value="{{ old('name') }}" required autofocus placeholder="John Doe">
+                <input type="text" id="name" name="name" class="form-control" value="{{ old('name') }}" required autofocus placeholder="Enter your full name">
             </div>
 
             <!-- Email Address -->
@@ -33,7 +33,7 @@
                 <label for="email" class="form-label">
                     <i class="bi bi-envelope"></i> Email Address
                 </label>
-                <input type="email" id="email" name="email" class="form-control" value="{{ old('email') }}" required placeholder="john@example.com">
+                <input type="email" id="email" name="email" class="form-control" value="{{ old('email') }}" required placeholder="Enter your email">
                 <small class="text-muted">Use valid email format</small>
             </div>
 
@@ -56,7 +56,7 @@
 
             <!-- Register Button -->
             <button type="submit" class="btn-auth">
-                <i class="bi bi-person-plus"></i> Register as Customer
+                <i class="bi bi-person-plus"></i> Register
             </button>
 
             <!-- Additional Links -->

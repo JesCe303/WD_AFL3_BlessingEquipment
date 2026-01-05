@@ -24,23 +24,22 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            // Role: admin (full CRUD access) or customer (view & purchase only)
-            // enum: only allows 'admin' or 'customer' values
-            // default('customer'): new registrations become customers automatically
-            // after('email'): place column after email column
-            $table->enum('role', ['admin', 'customer'])->default('customer')->after('email');
+        Schema::table('tb_user', function (Blueprint $table) {
+            // Foreign key to tb_role
+            $table->unsignedBigInteger('id_role')->after('email_user');
+            $table->foreign('id_role')->references('id_role')->on('tb_role')->onDelete('restrict');
         });
     }
 
     /**
      * Reverse the migrations.
-     * Remove role column when rolling back migration
+     * Remove role foreign key when rolling back migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('role');
+        Schema::table('tb_user', function (Blueprint $table) {
+            $table->dropForeign(['id_role']);
+            $table->dropColumn('id_role');
         });
     }
 };

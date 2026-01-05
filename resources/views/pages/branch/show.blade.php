@@ -1,7 +1,89 @@
 @extends('layouts.master')
 
 @section('content')
-    <h1 style="color: #1a2332;">Branch Management</h1>
+
+{{-- Page Header --}}
+<div class="page-header-modern">
+    <div class="page-header-overlay">
+        <div class="container">
+            <h1 class="page-header-title"><i class="bi bi-building me-3"></i>Branch Management</h1>
+            <p class="page-header-subtitle">Manage your store locations</p>
+        </div>
+    </div>
+</div>
+
+<div class="container" style="margin-top: 3rem; margin-bottom: 3rem;">
+
+<style>
+    /* Page Header Modern */
+    .page-header-modern {
+        background: linear-gradient(135deg, rgba(26, 35, 50, 0.95) 0%, rgba(44, 62, 80, 0.92) 100%),
+                    url('https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2069') center/cover;
+        padding: 140px 0 100px;
+        text-align: center;
+        color: white;
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+        margin: 0;
+    }
+
+    .page-header-modern::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: repeating-linear-gradient(
+            45deg,
+            transparent,
+            transparent 10px,
+            rgba(255, 215, 0, 0.02) 10px,
+            rgba(255, 215, 0, 0.02) 20px
+        );
+    }
+
+    .page-header-modern::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 200px;
+        background: linear-gradient(to bottom, 
+            rgba(248, 249, 250, 0) 0%,
+            rgba(248, 249, 250, 0.05) 20%,
+            rgba(248, 249, 250, 0.15) 40%,
+            rgba(248, 249, 250, 0.35) 60%,
+            rgba(248, 249, 250, 0.65) 80%,
+            rgba(248, 249, 250, 0.90) 92%,
+            #f8f9fa 100%
+        );
+    }
+
+    .page-header-overlay {
+        position: relative;
+        z-index: 1;
+    }
+
+    .page-header-title {
+        font-size: 3.5rem;
+        font-weight: 800;
+        color: #FFD700;
+        margin-bottom: 1rem;
+        text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .page-header-subtitle {
+        font-size: 1.3rem;
+        opacity: 0.95;
+        color: rgba(255, 255, 255, 0.9);
+    }
+</style>
 
     {{-- Display success message --}}
     @if(session('Message'))
@@ -106,7 +188,7 @@
                 </tbody>
             </table>
             <div class="d-flex justify-content-center mt-3">
-                {{ $data_branch->links() }}
+                {{ $data_branch->links('pagination::bootstrap-5') }}
             </div>
         </div>
     </div>

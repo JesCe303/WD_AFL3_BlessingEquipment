@@ -8,6 +8,7 @@ class Branch extends Model
 {
     protected $table = 'tb_branch';
     protected $primaryKey = 'id_branch';
+    public $timestamps = false;
     protected $guarded = ['id_branch'];
     protected $fillable = ['name_branch', 'address_branch', 'type_branch', 'image_branch'];
 

@@ -1,20 +1,40 @@
     <style>
         .navbar-custom {
-            background: linear-gradient(135deg, #0a0f1a 0%, #151b28 100%);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(180deg, 
+                rgba(10, 15, 26, 1) 0%, 
+                rgba(15, 22, 35, 0.98) 70%,
+                rgba(20, 28, 40, 0.95) 100%
+            );
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.1);
         }
 
         .navbar-custom .navbar-brand {
             font-weight: 700;
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             color: white !important;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            letter-spacing: 0.5px;
+        }
+
+        .navbar-custom .navbar-brand i {
+            color: #FFD700;
+            font-size: 1.8rem;
         }
 
         .navbar-custom .nav-link {
             transition: all 0.3s ease;
             position: relative;
-            padding: 8px 15px !important;
-            color: white !important;
+            padding: 1.2rem 1.5rem !important;
+            color: rgba(255, 255, 255, 0.9) !important;
+            font-weight: 500;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
         }
 
         .navbar-custom .nav-link:hover {
@@ -25,22 +45,34 @@
             content: '';
             position: absolute;
             width: 0;
-            height: 2px;
+            height: 3px;
             bottom: 0;
             left: 50%;
-            background-color: #FFD700;
+            background: linear-gradient(90deg, #FFD700, #FFA500);
             transition: all 0.3s ease;
             transform: translateX(-50%);
+            border-radius: 2px 2px 0 0;
         }
 
         .navbar-custom .nav-link:hover::after {
-            width: 80%;
+            width: 100%;
+        }
+
+        .navbar-custom .nav-link.active::after {
+            width: 100%;
+        }
+
+        .navbar-custom .container-fluid {
+            padding: 0 5%;
         }
     </style>
 
     <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
-        <div class="container">
-            <a class="navbar-brand" href="#">Blessing Equipment</a>
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <i class="bi bi-gear-fill"></i>
+                Blessing Equipment
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -75,6 +107,11 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="/cart">
                                     <i class="bi bi-cart"></i> Cart
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('favorite.index') }}">
+                                    <i class="bi bi-heart"></i> Favorites
                                 </a>
                             </li>
                         @endif

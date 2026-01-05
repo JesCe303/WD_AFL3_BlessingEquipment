@@ -50,7 +50,7 @@ class RegisteredUserController extends Controller
         // Password must be confirmed (password_confirmation field must match)
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:tb_user,email_user'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
@@ -58,8 +58,8 @@ class RegisteredUserController extends Controller
         // Role defaults to 'customer' (set in migration)
         // Password is hashed for security (never store plain text passwords)
         $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
+            'name_user' => $request->name,
+            'email_user' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 

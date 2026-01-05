@@ -22,20 +22,17 @@ class CategorySeeder extends Seeder
             // Default category - CANNOT BE DELETED (protected in CategoryController)
             [
                 'category_name' => 'Uncategorized',
-                'category_description' => 'Default category for uncategorized products.',
-                'created_at' => now()
+                'category_description' => 'Default category for uncategorized products.'
             ],
             // Bakery equipment spare parts category
             [
                 'category_name' => 'Bakery',
-                'category_description' => 'Bakery Spareparts and supplies.',
-                'created_at' => now()
+                'category_description' => 'Bakery Spareparts and supplies.'
             ],
             // Restaurant equipment spare parts category
             [
                 'category_name' => 'Restaurants',
-                'category_description' => 'Spareparts and equipment for restaurants.',
-                'created_at' => now()
+                'category_description' => 'Spareparts and equipment for restaurants.'
             ]
         ]);
     }

@@ -15,6 +15,9 @@ class ProductModel extends Model
 
     // Primary key column name
     protected $primaryKey = 'id_product';
+    
+    // Disable timestamps
+    public $timestamps = false;
 
     // Allow mass assignment for all fields except id_product
     // This means all columns can be filled using create() or update()
@@ -38,5 +41,15 @@ class ProductModel extends Model
     public function category()
     {
         return $this->belongsTo(Category::class, 'id_category', 'id_category');
+    }
+
+    /**
+     * Relationship: Product has many Images
+     * Each product can have multiple product images
+     */
+    public function images()
+    {
+        return $this->hasMany(ProductImage::class, 'id_product', 'id_product')
+            ->orderBy('display_order');
     }
 }

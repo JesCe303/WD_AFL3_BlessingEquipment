@@ -65,13 +65,31 @@ Route::get('/product/{id}', [ProductController::class, 'show'])->name('product.s
  * Customers can add to cart, view cart, update quantity, remove items
  */
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\CheckoutController;
 
 Route::middleware(['auth', 'customer'])->group(function () {
+    // Cart routes
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
     Route::post('/cart', [CartController::class, 'store'])->name('cart.store');
+    Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
     Route::put('/cart/{id}', [CartController::class, 'update'])->name('cart.update');
     Route::delete('/cart/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
+    
+    // Favorite routes
+    Route::get('/favorite', [FavoriteController::class, 'index'])->name('favorite.index');
+    Route::post('/favorite', [FavoriteController::class, 'store'])->name('favorite.store');
+    Route::post('/favorite/toggle', [FavoriteController::class, 'toggle'])->name('favorite.toggle');
+    Route::delete('/favorite/{id}', [FavoriteController::class, 'destroy'])->name('favorite.destroy');
+    
+    // Checkout routes
+    Route::post('/checkout/process', [CheckoutController::class, 'process'])->name('checkout.process');
+    Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
+    Route::get('/checkout/retry/{orderNumber}', [CheckoutController::class, 'retryPayment'])->name('checkout.retry');
 });
+
+// Midtrans callback (no auth/CSRF protection needed)
+Route::post('/midtrans/callback', [CheckoutController::class, 'callback']);
 
 /**
  * Dashboard & Profile - For authenticated users

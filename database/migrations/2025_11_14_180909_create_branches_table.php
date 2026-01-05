@@ -17,7 +17,6 @@ return new class extends Migration
             $table->text('address_branch');
             $table->string('type_branch', 50); // Online/Offline/Hybrid
             $table->string('image_branch')->nullable(); // Branch image upload
-            $table->timestamps();
         });
     }
 

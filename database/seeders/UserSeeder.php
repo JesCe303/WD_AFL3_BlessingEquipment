@@ -22,19 +22,19 @@ class UserSeeder extends Seeder
     {
         // Create admin account with full access
         User::create([
-            'name' => 'Admin User',
-            'email' => 'username@gmail.com',
+            'name_user' => 'Admin User',
+            'email_user' => 'username@gmail.com',
             'password' => Hash::make('Awawa123'),
-            'role' => 'admin',
+            'id_role' => 1, // admin
             'email_verified_at' => now()
         ]);
 
         // Create customer account for testing shopping features
         User::create([
-            'name' => 'Customer User',
-            'email' => 'customer@example.com',
+            'name_user' => 'Customer User',
+            'email_user' => 'customer@example.com',
             'password' => Hash::make('Password123'),
-            'role' => 'customer',
+            'id_role' => 2, // customer
             'email_verified_at' => now()
         ]);
     }

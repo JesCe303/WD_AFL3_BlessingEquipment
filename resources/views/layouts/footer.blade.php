@@ -1,10 +1,44 @@
     <style>
         .footer-info {
-            background: linear-gradient(135deg, #0a0f1a 0%, #151b28 100%);
-            padding: 30px 0;
+            background: linear-gradient(135deg, #1a2332 0%, #2c3e50 50%, #1a2332 100%);
+            padding: 60px 0 40px;
             color: white;
             width: 100%;
-            margin-top: 50px;
+            margin-top: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer-info::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, #FFD700, transparent);
+        }
+
+        .footer-info::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255, 215, 0, 0.02) 10px,
+                rgba(255, 215, 0, 0.02) 20px
+            );
+            pointer-events: none;
+        }
+
+        .footer-info .container {
+            position: relative;
+            z-index: 1;
         }
 
         /* padding top bottom */
@@ -20,34 +54,36 @@
 
         /* styling circle icon */
         .footer-icon {
-            width: 60px;
-            height: 60px;
-            border: 2px solid white;
+            width: 70px;
+            height: 70px;
+            border: 3px solid rgba(255, 215, 0, 0.3);
             border-radius: 50%;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 10px;
-            font-size: 24px;
-            transition: all 0.3s ease;
-            color: white;
+            margin-bottom: 15px;
+            font-size: 28px;
+            transition: all 0.4s ease;
+            color: #FFD700;
+            background: rgba(255, 215, 0, 0.05);
         }
 
         /* styling for footer item heading (whatsapp, email, etc) */
         .footer-item h5 {
-            font-size: 16px;
-            margin-bottom: 5px;
-            font-weight: bold;
-            transition: color 0.3s ease;
+            font-size: 17px;
+            margin-bottom: 8px;
+            font-weight: 700;
+            transition: all 0.3s ease;
             color: white;
+            letter-spacing: 0.5px;
         }
 
         /* styling for footer item paragraph */
         .footer-item p {
             margin: 0;
             font-size: 14px;
-            transition: color 0.3s ease;
-            color: white;
+            transition: all 0.3s ease;
+            color: rgba(255, 255, 255, 0.8);
         }
 
         /* styling for footer item links */
@@ -65,24 +101,37 @@
         }
 
         /* hover effect for text and icon */
-        .footer-item a:hover h5,
+        .footer-item a:hover h5 {
+            color: #FFD700;
+            transform: translateY(-2px);
+        }
+
         .footer-item a:hover p {
             color: #FFD700;
         }
 
         .footer-item a:hover .footer-icon {
             border-color: #FFD700;
-            color: #FFD700;
+            background: rgba(255, 215, 0, 0.15);
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.3);
         }
 
         /* styling for footer copyright text */
         .footer {
             text-align: center;
-            padding: 15px;
-            background-color: #f1f1f1;
+            padding: 20px;
+            background: linear-gradient(135deg, #0a0f1a 0%, #151b28 100%);
             width: 100%;
-            font-size: 12px;
-        }   
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.7);
+            border-top: 1px solid rgba(255, 215, 0, 0.1);
+        }
+
+        .footer span {
+            position: relative;
+            z-index: 1;
+        }
     </style>
 
 <!-- Footer Info Section -->

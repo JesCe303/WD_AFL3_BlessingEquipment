@@ -15,6 +15,18 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    
+                    {{-- Cart & Favorite Links (only for customers) --}}
+                    @auth
+                        @if(auth()->user()->role === 'customer')
+                            <x-nav-link :href="route('cart.index')" :active="request()->routeIs('cart.*')">
+                                <i class="bi bi-cart"></i> {{ __('Cart') }}
+                            </x-nav-link>
+                            <x-nav-link :href="route('favorite.index')" :active="request()->routeIs('favorite.*')">
+                                <i class="bi bi-heart"></i> {{ __('Favorites') }}
+                            </x-nav-link>
+                        @endif
+                    @endauth
                 </div>
             </div>
 

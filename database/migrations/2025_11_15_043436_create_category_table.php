@@ -17,7 +17,6 @@ return new class extends Migration
             
             $table->string('category_name', 100);
             $table->text('category_description');
-            $table->timestamps();
         });
     }
 

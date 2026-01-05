@@ -40,7 +40,8 @@ class AdminMiddleware
             return $next($request); // Allow access to protected route
         }
 
-        // Redirect non-admin users (customer/guest) to homepage with error message
-        return redirect('/')->with('Error', 'Access denied. Admin only.');
+        // Show 404 error for non-admin users (customer/guest)
+        // Makes admin routes invisible to customers
+        abort(404);
     }
 }

@@ -12,15 +12,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('carts', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // Customer who owns this cart item
-            $table->foreignId('id_product')->references('id_product')->on('tb_product')->onDelete('cascade'); // Product in cart
+        Schema::create('tb_cart', function (Blueprint $table) {
+            $table->id('id_cart');
+            $table->unsignedBigInteger('id_user');
+            $table->unsignedBigInteger('id_product');
             $table->integer('quantity')->default(1); // Quantity of product
-            $table->timestamps();
+            
+            // Foreign keys
+            $table->foreign('id_user')->references('id_user')->on('tb_user')->onDelete('cascade'); // Customer who owns this cart item
+            $table->foreign('id_product')->references('id_product')->on('tb_product')->onDelete('cascade'); // Product in cart
             
             // Prevent duplicate items: one user can only have one entry per product
-            $table->unique(['user_id', 'id_product']);
+            $table->unique(['id_user', 'id_product']);
         });
     }
 
@@ -29,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('carts');
+        Schema::dropIfExists('tb_cart');
     }
 };

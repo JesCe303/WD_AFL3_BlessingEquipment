@@ -15,11 +15,11 @@ class CategoryController extends Controller
         $search = $request->input('search');
         
         // Filter categories by name if search keyword exists, otherwise get all categories
-        // Pagination: 10 categories per page, appends() keeps search parameter in links
+        // Pagination: 3 categories per page, appends() keeps search parameter in links
         if (isset($search)) {
-            $category = Category::where('category_name', 'LIKE', '%' . $search . '%')->paginate(10)->appends(['search' => $search]);
+            $category = Category::where('category_name', 'LIKE', '%' . $search . '%')->paginate(3)->appends(['search' => $search]);
         } else {
-            $category = Category::paginate(10);
+            $category = Category::paginate(3);
         }
 
         // For AJAX requests (from JavaScript search), return JSON data only

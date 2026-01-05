@@ -1,6 +1,22 @@
 @extends('layouts.master')
 
 @section('content')
+
+{{-- Flash Messages --}}
+@if(session('Message'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert" style="margin: 1rem auto; max-width: 1200px; background-color: #d4edda; border: 1px solid #c3e6cb; color: #155724; padding: 1rem; border-radius: 5px;">
+        {{ session('Message') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if(session('Error'))
+    <div class="alert alert-warning alert-dismissible fade show" role="alert" style="margin: 1rem auto; max-width: 1200px; background-color: #fff3cd; border: 1px solid #ffeaa7; color: #856404; padding: 1rem; border-radius: 5px;">
+        {{ session('Error') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
 <style>
     .product-detail-header {
         background: linear-gradient(135deg, #1a2332 0%, #2a3545 100%);
@@ -169,17 +185,40 @@
             </div>
 
             <div class="d-flex gap-3">
-                {{-- Add to Cart button (only for logged-in customers) --}}
+                {{-- Add to Cart & Favorite buttons (only for logged-in customers) --}}
                 @auth
-                    @if(auth()->user()->role === 'customer' && $product->stock_product > 0)
-                        <form action="{{ route('cart.store') }}" method="POST">
-                            @csrf
-                            <input type="hidden" name="id_product" value="{{ $product->id_product }}">
-                            <input type="hidden" name="quantity" value="1">
-                            <button type="submit" class="btn-add-cart">
-                                <i class="bi bi-cart-plus"></i> Add to Cart
-                            </button>
-                        </form>
+                    @if(auth()->user()->role === 'customer')
+                        <div class="d-flex gap-2">
+                            {{-- Add to Cart button --}}
+                            @if($product->stock_product > 0)
+                                <form action="{{ route('cart.store') }}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="id_product" value="{{ $product->id_product }}">
+                                    <input type="hidden" name="quantity" value="1">
+                                    <button type="submit" class="btn-add-cart">
+                                        <i class="bi bi-cart-plus"></i> Add to Cart
+                                    </button>
+                                </form>
+                            @else
+                                <button class="btn-add-cart" disabled style="opacity: 0.5;">
+                                    <i class="bi bi-x-circle"></i> Out of Stock
+                                </button>
+                            @endif
+                            
+                            {{-- Favorite button --}}
+                            <form action="{{ route('favorite.toggle') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="id_product" value="{{ $product->id_product }}">
+                                @php
+                                    $isFavorited = \App\Models\Favorite::where('id_user', auth()->id())
+                                        ->where('id_product', $product->id_product)
+                                        ->exists();
+                                @endphp
+                                <button type="submit" class="btn" style="background-color: {{ $isFavorited ? '#dc3545' : '#e0e0e0' }}; color: {{ $isFavorited ? 'white' : '#1a2332' }}; border: 2px solid #1a2332; padding: 1rem 2rem; font-size: 1.2rem; font-weight: 700; border-radius: 10px;">
+                                    <i class="bi bi-heart{{ $isFavorited ? '-fill' : '' }}"></i>
+                                </button>
+                            </form>
+                        </div>
                     @endif
                 @else
                     <a href="{{ route('login') }}" class="btn-add-cart" style="text-decoration: none;">

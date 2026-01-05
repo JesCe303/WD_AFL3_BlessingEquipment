@@ -26,7 +26,7 @@
                 <label for="email" class="form-label">
                     <i class="bi bi-envelope"></i> Email Address
                 </label>
-                <input type="email" id="email" name="email" class="form-control" value="{{ old('email') }}" required autofocus placeholder="user123@gmail.com">
+                <input type="email" id="email" name="email" class="form-control" value="{{ old('email') }}" required autofocus placeholder="Enter your email">
             </div>
 
             <!-- Password -->
@@ -52,11 +52,6 @@
 
             <!-- Additional Links -->
             <div class="mt-3 text-center">
-                <p class="mb-2">
-                    <a href="{{ route('password.request') }}" class="auth-link">
-                        <i class="bi bi-question-circle"></i> Forgot your password?
-                    </a>
-                </p>
                 <p class="mb-0">
                     Don't have an account? 
                     <a href="{{ route('register') }}" class="auth-link">

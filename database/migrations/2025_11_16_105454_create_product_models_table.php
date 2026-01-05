@@ -24,7 +24,6 @@ return new class extends Migration
 
             $table->unsignedBigInteger('id_branch');
             $table->unsignedBigInteger('id_category');
-            $table->timestamps();
 
             $table->foreign('id_branch')->references('id_branch')->on('tb_branch')->onDelete('cascade');
             // onDelete cascade means if the branch is deleted, all products in that branch will also be deleted

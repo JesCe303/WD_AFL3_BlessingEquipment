@@ -14,11 +14,11 @@ class BranchController extends Controller
         $search = $request->input('search');
         
         // Search by branch name if keyword exists
-        // Pagination: 10 branches per page, appends() keeps search parameter in links
+        // Pagination: 3 branches per page, appends() keeps search parameter in links
         if (isset($search)) {
-            $branches = Branch::where('name_branch', 'LIKE', '%' . $search . '%')->paginate(10)->appends(['search' => $search]);
+            $branches = Branch::where('name_branch', 'LIKE', '%' . $search . '%')->paginate(3)->appends(['search' => $search]);
         } else {
-            $branches = Branch::paginate(10);
+            $branches = Branch::paginate(3);
         }
 
         // Return JSON for AJAX search requests

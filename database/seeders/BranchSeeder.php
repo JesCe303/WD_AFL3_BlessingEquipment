@@ -16,14 +16,12 @@ class BranchSeeder extends Seeder
             [
                 'name_branch' => 'Blessing Equipment Surabaya',
                 'address_branch' => 'Darmo Permai Selatan XIII No.33, Surabaya',
-                'type_branch' => 'Offline Store',
-                'created_at' => now()
+                'type_branch' => 'Offline Store'
             ],
             [
                 'name_branch' => 'Blessing Equipment Jakarta',
                 'address_branch' => 'Jl. Sudirman No.45, Jakarta',
-                'type_branch' => 'Offline Store',
-                'created_at' => now()
+                'type_branch' => 'Offline Store'
             ]
         ]);
     }

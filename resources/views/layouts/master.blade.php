@@ -19,6 +19,91 @@
     
     <!-- Custom Product Styles -->
     <link rel="stylesheet" href="{{ asset('css/product-styles.css') }}">
+    
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #f8f9fa;
+            color: #1a2332;
+        }
+
+        .pagination p {
+            display: none !important;
+        }
+
+        /* Smooth Scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Global Button Styles */
+        .btn {
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Card Improvements */
+        .card {
+            border: none;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border-radius: 12px;
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        }
+
+        /* Alert Improvements */
+        .alert {
+            border-radius: 12px;
+            border: none;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        /* Table Improvements */
+        .table {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        /* Form Control Improvements */
+        .form-control, .form-select {
+            border-radius: 8px;
+            border: 2px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: #FFD700;
+            box-shadow: 0 0 0 0.2rem rgba(255, 215, 0, 0.15);
+        }
+
+        /* Responsive Typography */
+        @media (max-width: 768px) {
+            .page-header-title, .product-page-title, .hero-title {
+                font-size: 2.5rem !important;
+            }
+
+            .page-header-subtitle, .product-page-subtitle, .hero-subtitle {
+                font-size: 1.1rem !important;
+            }
+        }
+    </style>
         
     <title>Homepage</title>
 </head>
@@ -29,9 +114,8 @@
     @include('layouts.navbar')
 
     <!-- Content -->
-    {{-- margin top for the fixed navbar --}}
-    {{-- margin bottom for the fixed footer --}}
-    <div class="container" style="margin-top: 80px; margin-bottom: 50px; flex: 1;">
+    {{-- Full width for pages with custom headers, container for others --}}
+    <div style="margin-top: 80px; flex: 1;">
         <!-- content content -->
         @yield ('content')
     </div>

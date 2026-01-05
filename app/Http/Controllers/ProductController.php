@@ -36,9 +36,9 @@ class ProductController extends Controller
             $query->where('tb_product.name_product', 'LIKE', '%' . $search . '%');
         }
         
-        // Pagination: 10 products per page
+        // Pagination: 3 products per page
         // appends() keeps branch & search parameters in pagination links
-        $product = $query->paginate(10)->appends(['branch' => $branchId, 'search' => $search]);
+        $product = $query->paginate(3)->appends(['branch' => $branchId, 'search' => $search]);
 
         // Return JSON for AJAX requests
         if ($request->ajax()) {
